@@ -3,6 +3,10 @@ package com.example.architectureexample;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+//import lombok.getter und setter
+
+
+
 @Entity(tableName = "note_table")
 public class Note {
 

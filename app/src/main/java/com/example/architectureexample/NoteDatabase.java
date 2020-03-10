@@ -11,21 +11,21 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 @Database(entities = {Note.class}, version = 1)
 public abstract class NoteDatabase extends RoomDatabase {
 
-    private static NoteDatabase instance;
+    private static NoteDatabase instance;  // Instanzerzeugung der DB
 
-    public abstract NoteDao noteDao();
+    public abstract NoteDao noteDao();    // Methodenaufruf
 
     public static synchronized NoteDatabase getInstance(Context context)  {
-        if (instance == null)  {
-            instance = Room.databaseBuilder(context.getApplicationContext(),
+        if (instance == null)  {     // anlegen nur, wenn keine DB vorhanden
+            instance = Room.databaseBuilder(context.getApplicationContext(),   // Erzeugung der DB
                     NoteDatabase.class,"note_database")
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
                     .build();
         }
         return instance;
-
     }
+
     private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -46,7 +46,6 @@ public abstract class NoteDatabase extends RoomDatabase {
             noteDao.insert(new Note("Title 1", "Description 1", 1));
             noteDao.insert(new Note("Title 2", "Description 2", 2));
             noteDao.insert(new Note("Title 3", "Description 3", 3));
-
             return null;
         }
     }

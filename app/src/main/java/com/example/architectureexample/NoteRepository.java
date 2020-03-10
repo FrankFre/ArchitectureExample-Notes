@@ -36,7 +36,7 @@ public class NoteRepository {
         return allNotes;
     }
 
-    private static class InsertNoteAsyncTask extends AsyncTask<Note, Void, Void> {
+    private static class InsertNoteAsyncTask extends AsyncTask<Note, Void, Void> {  //inner Class
         private NoteDao noteDao;
 
         private InsertNoteAsyncTask(NoteDao noteDao) {
@@ -50,7 +50,7 @@ public class NoteRepository {
         }
     }
 
-    private static class UpdateNoteAsyncTask extends AsyncTask<Note, Void, Void> {
+    private static class UpdateNoteAsyncTask extends AsyncTask<Note, Void, Void> {   //Async task läuft unabhängig, quasi Hintergrundtask, um Main nicht aufzuhalten
         private NoteDao noteDao;
 
         private UpdateNoteAsyncTask(NoteDao noteDao) {
@@ -58,7 +58,7 @@ public class NoteRepository {
         }
 
         @Override
-        protected Void doInBackground(Note... notes) {
+        protected Void doInBackground(Note... notes) {   //... beliebig viele
             noteDao.update(notes[0]);
             return null;
         }

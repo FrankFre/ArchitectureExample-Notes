@@ -9,7 +9,7 @@ import androidx.room.Update;
 
 import java.util.List;
 
-@Dao
+@Dao   // Data Access Object, Ding für den Zugriff auf die DB
 public interface NoteDao {
 
     @Insert
@@ -25,5 +25,5 @@ public interface NoteDao {
     void deleteAllNotes();
 
     @Query("SELECT * FROM note_table ORDER BY priority DESC")
-    LiveData<List<Note>> getAllNotes();
+    LiveData<List<Note>> getAllNotes();   // Über LiveData werden Änderungen an der Liste Notes übergeben, Listenvariable
 }

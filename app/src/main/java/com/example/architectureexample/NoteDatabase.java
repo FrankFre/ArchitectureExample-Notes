@@ -2,7 +2,6 @@ package com.example.architectureexample;
 
 import android.content.Context;
 import android.os.AsyncTask;
-
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -44,9 +43,9 @@ public abstract class NoteDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids)  {
-            noteDao.insert((new Note("Title 1", "Description 1", 1));
-            noteDao.insert((new Note("Title 2", "Description 2", 2));
-            noteDao.insert((new Note("Title 3", "Description 3", 3));
+            noteDao.insert(new Note("Title 1", "Description 1", 1));
+            noteDao.insert(new Note("Title 2", "Description 2", 2));
+            noteDao.insert(new Note("Title 3", "Description 3", 3));
 
             return null;
         }

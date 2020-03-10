@@ -1,19 +1,19 @@
 package com.example.architectureexample;
 
 import android.app.Application;
-
+import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
-import androidx.room.Delete;
+
+import java.util.List;
 
 public class NoteRepository {
-    private NoteDao;
+    private NoteDao noteDao;
     private LiveData<List<Note>> allNotes;
 
     public NoteRepository(Application application) {
         NoteDatabase database = NoteDatabase.getInstance(application);
         noteDao = database.noteDao();
         allNotes = noteDao.getAllNotes();
-
     }
 
     public void insert(Note note) {
@@ -26,16 +26,14 @@ public class NoteRepository {
 
     public void delete(Note note) {
         new DeleteNoteAsyncTask(noteDao).execute(note);
-
     }
 
     public void deleteAllNotes(Note note) {
-        new DeleteAllNoteAsyncTask(noteDao).execute(note);
+        new DeleteAllNotesAsyncTask(noteDao).execute();
     }
 
     public LiveData<List<Note>> getAllNotes() {
         return allNotes;
-
     }
 
     private static class InsertNoteAsyncTask extends AsyncTask<Note, Void, Void> {
@@ -75,22 +73,21 @@ public class NoteRepository {
 
         @Override
         protected Void doInBackground(Note... notes) {
-            noteDao.insert(notes[0]);
+            noteDao.delete(notes[0]);
             return null;
         }
     }
 
-    private static class DeleteAllNoteAsyncTask extends AsyncTask<Void, Void, Void> {
+    private static class DeleteAllNotesAsyncTask extends AsyncTask<Void, Void, Void> {
         private NoteDao noteDao;
 
-        private DeleteAllNoteAsyncTask(NoteDao noteDao) {
+        private DeleteAllNotesAsyncTask(NoteDao noteDao) {
             this.noteDao = noteDao;
-
         }
 
         @Override
-        protected Void doInBackground(Note... voids) {
-            noteDao.deleteAllNotes(notes[0]);
+        protected Void doInBackground(Void... voids) {
+            noteDao.deleteAllNotes();
             return null;
         }
     }

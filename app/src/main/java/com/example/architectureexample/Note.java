@@ -1,9 +1,9 @@
 package com.example.architectureexample;
 
-import androidx.arch.persistence.room.Entity;
+import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tablename = "note_table")
+@Entity(tableName = "note_table")
 public class Note {
 
     @PrimaryKey(autoGenerate = true)
@@ -12,7 +12,6 @@ public class Note {
     private String title;
 
     private String description;
-
 
     private int priority;
 
@@ -29,8 +28,6 @@ public class Note {
     public int getId() {
         return id;
     }
-
-
 
     public String getTitle() {
         return title;

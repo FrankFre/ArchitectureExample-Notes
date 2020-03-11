@@ -25,5 +25,5 @@ public interface NoteDao {
     void deleteAllNotes();
 
     @Query("SELECT * FROM note_table ORDER BY priority DESC")
-    LiveData<List<Note>> getAllNotes();   // Über LiveData werden Änderungen an der Liste Notes übergeben, Listenvariable
+    LiveData<List<Note>> getAllNotes();   // Über LiveData werden Änderungen an der Liste Notes übergeben
 }

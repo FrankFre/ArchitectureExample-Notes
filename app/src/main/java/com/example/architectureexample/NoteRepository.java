@@ -28,12 +28,16 @@ public class NoteRepository {
         new DeleteNoteAsyncTask(noteDao).execute(note);
     }
 
-    public void deleteAllNotes(Note note) {
-        new DeleteAllNotesAsyncTask(noteDao).execute();
-    }
+//    public void deleteAllNotes(Note note) {
+//        new DeleteAllNotesAsyncTask(noteDao).execute();
+//    }
 
     public LiveData<List<Note>> getAllNotes() {
         return allNotes;
+    }
+
+    public void deleteAllNotes() {
+        new DeleteAllNotesAsyncTask(noteDao).execute();
     }
 
     private static class InsertNoteAsyncTask extends AsyncTask<Note, Void, Void> {  //inner Class

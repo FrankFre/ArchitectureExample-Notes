@@ -12,7 +12,8 @@ import android.widget.Toast;
 
 import java.util.Objects;
 
-public class AddNoteActivity extends AppCompatActivity {
+public class AddEditNoteActivity extends AppCompatActivity {
+    public static final String EXTRA_ID = "com.codingflow.architectureexampe.EXTRA_ID";
     public static final String EXTRA_TITLE = "com.codingflow.architectureexampe.EXTRA_TITLE";
     public static final String EXTRA_DESCRIPTION = "com.codingflow.architectureexampe.EXTRA_DESCRIPTION";
     public static final String EXTRA_PRIORITY = "com.codingflow.architectureexampe.EXTRA_PRIORITY";
@@ -33,11 +34,22 @@ public class AddNoteActivity extends AppCompatActivity {
         numberPickerPriority.setMinValue(1);
         numberPickerPriority.setMaxValue(10);
 
-        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_close);
-        setTitle("Add Note");
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
+
+        Intent intent = getIntent();
+
+        if (intent.hasExtra(EXTRA_ID)) {
+            setTitle("Edit Note");
+            editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
+            editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
+            numberPickerPriority.setValue(intent.getIntExtra(EXTRA_PRIORITY, 1));
+        } else {
+            setTitle("Add Note");
+        }
     }
 
-        private void saveNote()  {
+
+       private void saveNote()  {
             String title = editTextTitle.getText().toString();
             String description = editTextDescription.getText().toString();
             int priority = numberPickerPriority.getValue();
@@ -51,6 +63,11 @@ public class AddNoteActivity extends AppCompatActivity {
             data.putExtra(EXTRA_TITLE, title);
             data.putExtra(EXTRA_DESCRIPTION, description);
             data.putExtra(EXTRA_PRIORITY, priority);
+
+            int id = getIntent().getIntExtra(EXTRA_ID, -1);
+                if (id != -1)  {
+                data.putExtra(EXTRA_ID, id);
+                }
 
             setResult(RESULT_OK, data);
             finish();
@@ -66,10 +83,9 @@ public class AddNoteActivity extends AppCompatActivity {
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
            if (item.getItemId() == R.id.save_note) {
-                saveNote();
-                return true;
-           }
-
+               saveNote();
+               return true;
+                }
            return super.onOptionsItemSelected(item);
         }
     }
